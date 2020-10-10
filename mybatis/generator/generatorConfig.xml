@@ -6,15 +6,20 @@
 <generatorConfiguration>
 
 
-<!--    <properties resource="application.properties" />-->
+    <properties resource="mbg.properties" />
     <!-- mysql驱动的位置 -->
-    <classPathEntry location="\.m2\repository\mysql\mysql-connector-java\8.0.19\mysql-connector-java-8.0.19.jar" />
-
+    <classPathEntry location="C:\Users\litibear\.m2\repository\mysql\mysql-connector-java\8.0.19\mysql-connector-java-8.0.19.jar" />
 
     <context id="Tables" targetRuntime="MyBatis3" defaultModelType="flat">
 
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
 
-        <!-- 注释 -- ?useUnicode=true&zeroDateTimeBehavior=convertToNull&autoReconnect=true&characterEncoding=utf-8&serverTimezone=GMT>
+        <!-- 注释 -->
         <commentGenerator>
             <!-- 是否生成注释代时间戳 -->
             <property name="suppressDate" value="false"/>
@@ -22,14 +27,18 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
 
-
+<!--        <jdbcConnection-->
+<!--                driverClass="com.mysql.cj.jdbc.Driver"-->
+<!--                connectionURL="jdbc:mysql://localhost:3306/?serverTimezone=Asia/Shanghai"-->
+<!--                userId="root"-->
+<!--                password="root">-->
+<!--        </jdbcConnection>-->
         <jdbcConnection
-                driverClass="com.mysql.cj.jdbc.Driver"
-                connectionURL="jdbc:mysql://localhost:3306/?serverTimezone=GMT"
-                userId="root"
-                password="root">
+                driverClass="${driverClassName}"
+                connectionURL="${url}"
+                userId="${username}"
+                password="${password}">
         </jdbcConnection>
-
 
         <!-- 非必需，类型处理器，在数据库类型和java类型之间的转换控制-->
         <!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
@@ -41,7 +50,7 @@
 
 
         <!-- 生成实体类地址 -->
-        <javaModelGenerator targetPackage="cg.test.mbgtr.domain" targetProject="src/main/java">
+        <javaModelGenerator targetPackage="${targetModel}" targetProject="src/main/java">
             <!-- 从数据库返回的值被清理前后的空格 -->
             <property name="trimStrings" value="true" />
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
@@ -50,14 +59,17 @@
 
 
         <!-- 生成mapper xml文件 -->
-        <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources">
+<!--        <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources">-->
+<!--            &lt;!&ndash; enableSubPackages:是否让schema作为包的后缀 &ndash;&gt;-->
+<!--            <property name="enableSubPackages" value="false" />-->
+<!--        </sqlMapGenerator>-->
+        <sqlMapGenerator targetPackage="${targetMap}"  targetProject="src/main/java">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />
         </sqlMapGenerator>
 
-
         <!-- 生成mapper xml对应Client-->
-        <javaClientGenerator targetPackage="cg.test.mbgtr.dao" targetProject="src/main/java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="${targetDao}" targetProject="src/main/java" type="XMLMAPPER">
             <!-- enableSubPackages:是否让schema作为包的后缀 -->
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
@@ -67,10 +79,17 @@
             是否生成 example类 -->
 
         <!-- 这就是数据库的一张表 domainObjectName="sys_user"-->
-        <table catalog="" tableName="SYS_USER"
-               enableCountByExample="false" enableInsert="true" enableUpdateByPrimaryKey="true"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               enableUpdateByExample="false">
+<!--        <table catalog="tvtech" tableName="mt"-->
+<!--               enableCountByExample="true" enableInsert="true" enableUpdateByPrimaryKey="true"-->
+<!--               enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--               enableUpdateByExample="true">-->
+<!--            <property name="useActualColumnNames" value="true"/>-->
+<!--            &lt;!&ndash; 默认为false，如果设置为true，在生成的SQL中，table名字不会加上catalog或schema； &ndash;&gt;-->
+<!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--            &lt;!&ndash; 参考 javaModelGenerator 的 immutable 属性 &ndash;&gt;-->
+<!--            <property name="immutable" value="false"/>-->
+<!--        </table>-->
+        <table tableName="${tableName}">
             <property name="useActualColumnNames" value="true"/>
             <!-- 默认为false，如果设置为true，在生成的SQL中，table名字不会加上catalog或schema； -->
             <property name="ignoreQualifiersAtRuntime" value="true"/>
