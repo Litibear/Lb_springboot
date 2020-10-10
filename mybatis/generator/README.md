@@ -1,4 +1,4 @@
-最简单使用mybatis generator方法，pom添加plugin，src/main/resources添加generatorConfig.xml，即可生成entity、dao、mapperXML，没有service和controller，
+最简单使用mybatis generator方法，pom只需要添加plugin，除了自动添加的spring-boot-starter dependency无需添加其他dependency，src/main/resources添加generatorConfig.xml，即可生成entity、dao、mapperXML，没有service和controller，
 
 添加dependency搜索org.mybatis.spring.boot.starter，org.mybatis.generator/.core/maven-plugin，
 
